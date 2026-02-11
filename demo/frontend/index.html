@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>IA Middleware Test</title>
+</head>
+<body>
+    <h2>Interagir com Agente IA</h2>
+    <input type="text" id="userInput" placeholder="Digite algo...">
+    <button onclick="sendToBackend()">Enviar</button>
+    
+    <p><strong>Resposta:</strong> <span id="response"></span></p>
+
+    <script>
+        async function sendToBackend() {
+            const text = document.getElementById('userInput').value;
+            const resDisplay = document.getElementById('response');
+            
+            resDisplay.innerText = "Processando...";
+
+            try {
+                const response = await fetch('http://localhost:5000/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                const data = await response.json();
+                resDisplay.innerText = data.reply;
+            } catch (err) {
+                resDisplay.innerText = "Erro ao conectar no Backend C#.";
+            }
+        }
+    </script>
+</body>
+</html>
