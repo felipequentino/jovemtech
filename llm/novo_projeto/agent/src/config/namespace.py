@@ -1,1 +1,0 @@
-ENDPOINT = "https:csharp.backend.com/predict"
